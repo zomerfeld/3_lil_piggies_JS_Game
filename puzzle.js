@@ -95,6 +95,8 @@ var style2 = {
 var pointsText = new PIXI.Text('Action' + '\n' +'Points' + '\n' + points,style);
 var stage = new PIXI.Container();
 var endText = new PIXI.Text('You have finished the game, and you have successfully built house for ' + (hayNumber+sticksNumber+brickNumber) + ' Piggies. Can you do better? ',style2);
+var deadWolfText = new PIXI.Text('WOLF DEATH', style);
+
 
 
 
@@ -146,14 +148,18 @@ function setup() {
     renderer.backgroundColor = wallColor; //The background is the color of the wall
     
     //ScoreBox Settings
-    pointsText.anchor.set(00, 0);
+    pointsText.anchor.set(0, 0);
     pointsText.x = renderer.width/25;
     pointsText.y = renderer.height/25;
     stage.addChild(pointsText);
-
+    //End Text Settings
     endText.anchor.set(0.5, 0.8);
     endText.x = renderer.width/2;
     endText.y = renderer.height/2;
+    //Wolf Death Text Settings
+    deadWolfText.anchor.set(0.5,0.6);
+    deadWolfText.x = renderer.width/2;
+    deadWolfText.y = renderer.height/2;
 
     buildMaze(); // renders the maze
     playerLocation = {'row':startLocation.row, 'column':startLocation.column}; //takes the columns from startLocation and put them into the array  playerLocation 
@@ -860,17 +866,19 @@ function nightTime() {
             redRow = wallStartX + cr * wallSize;
             redCol = wallStartY + cc * wallSize; 
             eat.play(); //play Sound 
-            break2.play(); //play Sound
             blinkRed();
             maze = maze.replaceAt(houseNumber, " "); // puts house in Maze
             buildMaze();
-            setTimeout(morning, 10);
+            setTimeout(playDeathSound,300);
+            stage.removeChild(wolf);
+            setTimeout(morning, 650);
             return;
          } else if (houseType == 'D') { //Bricks
             fade = 0;
-            break2.play(); //play Sound
             blinkRed();
-            setTimeout(morning, 10);
+            setTimeout(playDeathSound,300);
+            stage.removeChild(wolf);
+            setTimeout(morning, 650);
             return;
         }
     } 
@@ -892,7 +900,7 @@ function blinkRed () {
         setTimeout(redLoop, 10)
         fade ++;
     } else {
-        stage.removeChild(redSq); 
+        setTimeout(removeDeathText,400);
     }
 }
 
@@ -903,8 +911,20 @@ function redLoop() {
     redSq.beginFill(0xCC1100,fade/100-0.02);
     redSq.drawRect(wallStartX, wallStartY, rows*wallSize, columns*wallSize, pathColor); 
     stage.addChild(redSq); 
+    stage.addChild(deadWolfText);
     // renderer.render(stage);
     blinkRed();
+}
+
+function removeDeathText() {
+    drawPath();
+    stage.removeChild(deadWolfText);
+    stage.removeChild(redSq); 
+
+}
+
+function playDeathSound() {
+        break2.play(); //play Sound
 }
 
 
