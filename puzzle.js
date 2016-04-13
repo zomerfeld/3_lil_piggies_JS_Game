@@ -20,7 +20,8 @@ var rows = 5;
 
 //Sounds
 
-var break2 = new Audio("break-2.wav");
+// var break2 = new Audio("break-2.wav");
+var break2 = new Audio("monster_death5.wav");
 var eat = new Audio("crunch.wav");
 
 
@@ -54,8 +55,8 @@ var brickGain = 0;
 
 //Turn Variables
 
-var turn = 1;
-var totalTurns = 12;
+var turn = 2;
+var totalTurns = 13;
 
 // Graphics 
 var night = new PIXI.Graphics();
@@ -92,7 +93,7 @@ var style2 = {
 
 
 //Text Settings
-var pointsText = new PIXI.Text('Action' + '\n' +'Points' + '\n' + points,style);
+var pointsText = new PIXI.Text('Action' + '\n'+'Points' + '\n' + points,style);
 var stage = new PIXI.Container();
 var endText = new PIXI.Text('You have finished the game, and you have successfully built house for ' + (hayNumber+sticksNumber+brickNumber) + ' Piggies. Can you do better? ',style2);
 var deadWolfText = new PIXI.Text('WOLF DEATH', style);
@@ -127,11 +128,15 @@ var fade;
 
 
 // builder
-var builder = PIXI.Sprite.fromImage('http://i.imgur.com/GvxIRAM.png');
-builder.scale.x=0.2;
-builder.scale.y=0.2;
+// var builder = PIXI.Sprite.fromImage('http://i.imgur.com/GvxIRAM.png');
+var builder = PIXI.Sprite.fromImage('http://i.imgur.com/U65cyN9.png'); //Jherin builder
+
+builder.scale.x=0.35;
+builder.scale.y=0.35;
+// builder.scale.x=2;
+// builder.scale.y=2;
 builder.anchor.x=0.5;
-builder.anchor.y=0.5;
+builder.anchor.y=0.52;
 
 
 
@@ -174,8 +179,7 @@ function setup() {
 
 //runs continously 
 function update() {
-    graphics.clear(); //clears the graphics
-    drawEnd();
+    // graphics.clear(); //clears the graphics
     //draws the players and stores their current location into variables
     if (playerWonHooray == false) {
     	marioLocation = mario.drawPlayer(); 
@@ -185,7 +189,7 @@ function update() {
     //checks for win condition 
     checkWin(); 
 
-    pointsText.text = 'Action' + '\n' +'Points' + '\n' + points;
+    pointsText.text ='Action' + '\n' + 'Points' + '\n' + points;
     checkTurn();
 }
 
@@ -196,7 +200,6 @@ function update() {
   	switch (event.keyCode) {
         case 37: // Left Arrow
         if (playerWonHooray == false) {mario.moveLeft();}
-        lastAction = 'M';
         drawPath();
 
         // console.log('left');
@@ -205,14 +208,12 @@ function update() {
 
         case 38: // Up Arrow
         if (playerWonHooray == false) {mario.moveUp();}
-        lastAction = 'M';   
         drawPath();
 
         break;
 
         case 39: // Right Arrow
         if (playerWonHooray == false) {mario.moveRight();}
-        lastAction = 'M';
         drawPath();
         // console.log(maze);
 
@@ -220,7 +221,6 @@ function update() {
 
         case 40: // Down Arrow
         if (playerWonHooray == false) {mario.moveDown();}
-        lastAction = 'M';
         drawPath();
 
         break;
@@ -273,8 +273,8 @@ function update() {
         // changeMaze(maze2);
         // break;
 
-        default:
-        console.log (event.keyCode);
+        // default:
+        // console.log (event.keyCode);
         // prints the key pressed
     }
 }
@@ -446,7 +446,7 @@ function getRandomArbitrary(min, max) {
 
 //shows the hint
 function displayHint() {
-    endText.text = ('You have finished the game, and you have successfully built house for ' + (hayNumber+sticksNumber+brickNumber) + ' Piggies. Can you do better?');
+    endText.text = ('You have finished the game, and you have successfully built houses for ' + (hayNumber+sticksNumber+brickNumber) + ' Piggies. Can you do better?');
     stage.addChild(endText);
     renderer.render(stage);
 }
@@ -479,6 +479,8 @@ function buildMaze() { //Runs once in setup
 }
 
 function drawPath() {
+    // var stage = new PIXI.Container();
+    var path = new PIXI.Graphics();
     if ((isNight == 0) && (playerWonHooray != 1)) {
     for (var r=0; r<rows; r++) { //for all the rows
         for (var c=0; c<columns; c++) { //and all columns - meaning every spot
@@ -489,7 +491,6 @@ function drawPath() {
             // The start and end locations are also on the path,
             // so check for them too.
             if (ch==' ' || ch=='A') { //if space, draw the path. 
-            	var path = new PIXI.Graphics();
                 var x = wallStartX + c * wallSize;
                 var y = wallStartY + r * wallSize;
                 path.beginFill(pathColor,1);
@@ -548,10 +549,6 @@ function drawPath() {
 
 
 
-function drawEnd() {
-    //if playerwon
-
-}
 
 
 
@@ -900,7 +897,7 @@ function blinkRed () {
         setTimeout(redLoop, 10)
         fade ++;
     } else {
-        setTimeout(removeDeathText,400);
+        setTimeout(removeDeathText,300);
     }
 }
 
@@ -917,7 +914,7 @@ function redLoop() {
 }
 
 function removeDeathText() {
-    drawPath();
+    // drawPath();
     stage.removeChild(deadWolfText);
     stage.removeChild(redSq); 
 

@@ -12,59 +12,95 @@
         #gamecontainer {
             margin-top:100px;
         }
-#turn {
-    font-size: 1em;
-    font-weight: bold;
-    color: #F2F26F;
-}
-#turnText {
-    font-size: 1em;
-    font-weight: bold;
-    color: #F2F26F;
-}
-#morningScore {
-    position: absolute;
-    top:92px;
-    right:40px;
-    font-size: 1em;
-    text-align: left;
-    width: 220px;
-}
+        #turn {
+            font-size: 1em;
+            font-weight: bold;
+            color: #F2F26F;
+        }
+        .turnText {
+            font-size: 1em;
+            font-weight: bold;
+            color: #F2F26F;
+        }
+        #morningScore {
+            position: absolute;
+            top:92px;
+            right:40px;
+            font-size: 1em;
+            text-align: left;
+            width: 220px;
+        }
 
-#prologue {
-    position: absolute;
-    top:80px;
-    left:46px;
-    font-size: 1em;
-    text-align: left;
-    width: 220px;
-}
+        #prologue {
+            position: absolute;
+            top:80px;
+            left:46px;
+            font-size: 1em;
+            text-align: left;
+            width: 220px;
+        }
 
-.headline {
-    font-weight: bold;
-    font-size: 1.4em;
-}
-</style>
+        .headline {
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+    </style>
 </head>
 <body onload="fwSetup();">
-    <div id="prologue"><p>Welcome to piggytown! You are the master architect. Build as many houses for the piggies as you can, but be careful, because at night wolves will come to try to tear houses down and eat all the piggies! You can build houses out of hay, bricks, or sticks. Hay houses are the cheapest, but the wolves can tear them down no problem. Stick houses cost a little more, but after a wolf tears it down it will get tired and go home. Brick houses are the most expensive, and wolves can't tear them down at all.
-You can build 3 houses each day. Good luck!</p></div>
+    <div id="prologue"><p>Welcome to Piggytown! You are the master architect. Build as many houses for the piggies as you can in 12 days, but be careful, because at night wolves will come to try to tear houses down and eat all the piggies!
+    <br>
+    You can build houses out of hay, bricks, or sticks. 
+    <br>
+    Hay houses are the cheapest, but the wolves can tear them down no problem. Stick houses cost a little more, but after a wolf tears it down it will get tired and go home. Brick houses are the most expensive, and wolves can't tear them down at all.
+        You can build 3 houses each day. Good luck!</p>
+        <br>
+        <div class="finance" id="cost"> 
+            <span class="headline">COST TO BUILD</span>
+            <br>
+            <br>
+            HAY = 2
+            <br>
+            STICKS = 4
+            <br>
+            BRICK = 6
+        </div>
+    </div>
+
     <div id="gamecontainer"></div>
     <div id="morningScore"><span class="headline"> Last night you had:</span> <br>
-    <span id="hays">0</span> Hay Houses gaining you: <br>
-    <span id="hayGain">0</span> points <br>
-    <span id="stickss">0</span> Stick Houses gaining you: <br>
-    <span id="sticksGain">0</span> points <br>
-    <span id="bricks">0</span> Brick Houses gaining you: <br>
-    <span id="brickGain">0</span> points.
-    <br>
-    <br>
-    <br>
-    <div id="turnText">Day: <div id="turn">1</div></div>
+        <span id="hays">0</span> Hay Houses gaining you: <br>
+        <span id="hayGain">0</span> points <br>
+        <span id="stickss">0</span> Stick Houses gaining you: <br>
+        <span id="sticksGain">0</span> points <br>
+        <span id="bricks">0</span> Brick Houses gaining you: <br>
+        <span id="brickGain">0</span> points.
+        <br>
+        <br>
+        <br>
+        <div class="turnText">Day: <div id="turn">1</div></div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+                <div class="finance" id="cost"> 
+            <span class="headline">EARNING PER HOUSE</span>
+            <br>
+            <br>
+            HAY = 1
+            <br>
+            STICKS = 0.5
+            <br>
+            BRICK = 0.1
+        </div>
     </div> 
     <br>
-    <div id ="keys"> 1 for Hay, 2 for Sticks, 3 for Bricks.     P for Pass</div>
-<br>
+    <br>
+    <div id ="keys"><span class="turntext">Keys: </span>1 for Hay, 2 for Sticks, 3 for Bricks.     P for Pass</div>
+    <br>
 
 </body>
 <script src="pixi.min.js"></script>
